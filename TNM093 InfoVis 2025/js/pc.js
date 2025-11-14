@@ -43,7 +43,13 @@ function pc(data) {
 	extents = dimensions.map(function (p) { return [0, 0]; });
 
 	// Task 5.2.1 -- Drawing the Lines
-	var foreground;
+	var foreground = pc_svg.append("g")
+	.attr("class", "foreground")
+	.selectAll("path")
+	.data(data)
+	.enter()
+	.append("path")
+	.attr("d", drawPath)
 
 	
 	// Task 5.2.2 -- Drawing Axes

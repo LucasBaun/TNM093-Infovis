@@ -5,29 +5,44 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   //------------------------------------------------------------------------------------->
   /** COMPUTER EXERCISE STARTS HERE  */
   //Task 5.1.1  -- Create the x-axis
-  var x;
-
+  var x = d3.scaleLinear()
+  .domain([d3.min(data, d => +d[x_var]), d3.max(data, d => +d[x_var])])
+  .range([0, width]);
 
   //Task 5.1.2  -- Append the axes to the svg
-  var xAxis;
+  var xAxis = sp_svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(x));
 
 
   //Task 5.1.3  -- Create y-axis
-  var y;
-
+  var y = d3.scaleLinear()
+  .domain([d3.min(data, d => +d[y_var]), d3.max(data, d => +d[y_var])])
+  .range([height, 0]);
 
   // Task 5.1.4 -- Append the axis to svg
-  var yAxis;
+  var yAxis = sp_svg.append("g")
+  .call(d3.axisLeft(y));
   
 
   // Task 5.1.5 -- Append circles to svg
-  var myCircles;
+  var myCircles = sp_svg.append("g")
+  .selectAll("circle") // First use selectall then append.
+  .data(data)
+  .enter()
+  .append("circle")
 
-
+  
   // Task 5.1.6 -- Append circles to svg
+  .attr("cx", d => +d[x_var])
+  .attr("cy", d => +d[y_var])
+  .attr("r", 6)
+  .attr("fill-opacity", 0.3)
+  .style("fill", "darkturquoise")
 
 
   // Task 5.1.7 -- Adding hovering
+  hovering(myCircles, tooltip);
 
 
   return [x, xAxis, y, yAxis, myCircles];
