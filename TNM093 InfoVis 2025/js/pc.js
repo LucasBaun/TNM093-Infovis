@@ -53,16 +53,43 @@ function pc(data) {
 
 	
 	// Task 5.2.2 -- Drawing Axes
-	var axes;
+	var axes = pc_svg.selectAll(".dimension")
+	.data(dimensions)
+	.enter()
+	.append("g")
+	.attr("class", "dimension axis")
+	.attr("transform", function(d) { return "translate(" + x(d) + ", 0)"; })
+	.each(function(d){
+		d3.select(this).call(yAxis.scale(y[d]));
+	});
 
 	
 	// 5.2.3 -- Appending Axes Titles
+	axes.append("text")
+	.attr("text-anchor", "middle")
+	.attr("y", -9)
+	.style("fill", "black")
+	.text(function(d){return d;})
 
 
 	// 5.2.4 -- Interaction, brushing the axes
-	
+	axes.append("g")
+	.attr("class", "brush")
+	.each(function(d){
+		d3.select(this).call(perAxisBrush(d));
+	})
+	.selectAll("rect")
+	.attr("x", -8)
+	.attr("width", 10);
+
 
 	// 5.2.5 -- Interaction, dragging the Axes
+	axes.call(d3.drag()
+	.subject(function(d){return { x: x(d)}})
+	.on("start", startDrag)
+	.on("drag", drag)
+	.on("end", endDrag)
+	)
 	
 
 	//------------------------------------------------------------------------------------->
