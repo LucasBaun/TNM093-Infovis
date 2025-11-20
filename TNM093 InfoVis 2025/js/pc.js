@@ -44,12 +44,12 @@ function pc(data) {
 
 	// Task 5.2.1 -- Drawing the Lines
 	var foreground = pc_svg.append("g")
-	.attr("class", "foreground")
-	.selectAll("path")
-	.data(data)
-	.enter()
-	.append("path")
-	.attr("d", drawPath)
+	.attr("class", "foreground") //ger gruppen CSS klassen "foreground"
+	.selectAll("path") //Väljer alla path element i gruppen
+	.data(data) //binder data till sectionen, data är arrayen av regioner
+	.enter() //Skapar en "entetr-section" för alla regioner, en ny section för varje region
+	.append("path") //Lägger till en path element för varje region
+	.attr("d", drawPath) //sätter d-attribute (vägen) på varje linje, drawpath är en färdig funktion 
 
 	
 	// Task 5.2.2 -- Drawing Axes

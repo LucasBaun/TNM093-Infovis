@@ -6,18 +6,18 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   /** COMPUTER EXERCISE STARTS HERE  */
   //Task 5.1.1  -- Create the x-axis
   var x = d3.scaleLinear()
-  .domain([d3.min(data, d => +d[x_var]), d3.max(data, d => +d[x_var])])
-  .range([0, width]);
+  .domain([d3.min(data, d => +d[x_var]), d3.max(data, d => +d[x_var])]) //domain är min och max värdet för x-axeln
+  .range([0, width]); //range är 0 till width för x-axeln
 
   //Task 5.1.2  -- Append the axes to the svg
   var xAxis = sp_svg.append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+  .attr("transform", "translate(0," + height + ")") //attr betyder att vi translaterar x-axeln 0 pixlar nedåt
+  .call(d3.axisBottom(x)); //call betyder att vi anropar d3.axisBottom med x-axeln
 
 
   //Task 5.1.3  -- Create y-axis
   var y = d3.scaleLinear()
-  .domain([d3.min(data, d => +d[y_var]), d3.max(data, d => +d[y_var])])
+  .domain([d3.min(data, d => +d[y_var]), d3.max(data, d => +d[y_var])]) 
   .range([height, 0]);
 
   // Task 5.1.4 -- Append the axis to svg
@@ -27,22 +27,22 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
 
   // Task 5.1.5 -- Append circles to svg
   var myCircles = sp_svg.append("g")
-  .selectAll("circle") // First use selectall then append.
-  .data(data)
-  .enter()
-  .append("circle")
+  .selectAll("circle") //selectAll betyder att vi väljer alla cirklar
+  .data(data) //data betyder att vi väljer data
+  .enter() //enter betyder att vi lägger till en cirkel
+  .append("circle") //append betyder att vi lägger till en cirkel
 
   
   // Task 5.1.6 -- Append circles to svg
-  .attr("cx", d => +d[x_var])
-  .attr("cy", d => +d[y_var])
-  .attr("r", 6)
-  .attr("fill-opacity", 0.3)
-  .style("fill", "darkturquoise")
+  .attr("cx", d => +d[x_var]) //cx betyder x-koordinaten för cirkeln
+  .attr("cy", d => +d[y_var]) //cy betyder y-koordinaten för cirkeln
+  .attr("r", 6) //r betyder radien för cirkeln
+  .attr("fill-opacity", 0.3) //opacity till cirkeln
+  .style("fill", "darkturquoise") //fill betyder färgen för cirkeln
 
 
   // Task 5.1.7 -- Adding hovering
-  hovering(myCircles, tooltip);
+  hovering(myCircles, tooltip); //enkel hover funktion för cirklarna
 
 
   return [x, xAxis, y, yAxis, myCircles];
