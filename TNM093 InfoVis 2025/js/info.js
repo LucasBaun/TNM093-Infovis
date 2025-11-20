@@ -59,7 +59,7 @@ function info(data) {
 			*  Final Task -- call the two function below.
 			*/
 
-			cells.on("mouseover", selectValues).on("mouseout", resetSelectedValues);
+			.on("mouseover", selectValues).on("mouseout", resetSelectedValues);
 
 		function selectValues(param) {
 			pc.selectLine(param.value)
